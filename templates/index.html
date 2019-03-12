@@ -14,11 +14,12 @@
 <script>
     var data = {{ data.chart_data | safe }}
     console.log(data);
-    console.log(data["pca_stratified_sampling_scree_plot_data"]);
+    console.log(data["pca_stratified_sampling_projected_points"]);
 
     var screePlotCSSOptions = {
         domElement: "#screePlot",
-        width: $('#screePlot').parent().width(),
+        {#width: $('#screePlot').parent().width(),#}
+        width: 800,
         height: 550,
         margin:{top: 20,right: 20,bottom: 20,left: 35},
         showGridlines:true,
@@ -48,7 +49,7 @@
 
     var screePlot = new ScreePlot(screePlotCSSOptions);
     screePlot.initialize(); // initializes the SVG and UI elements
-    screePlot.render(data["pca_stratified_sampling_scree_plot_data"],screePlotDataOptions);
+    screePlot.render(data["pca_random_sampling_scree_plot_data"],screePlotDataOptions);
 </script>
 </body>
 </html>

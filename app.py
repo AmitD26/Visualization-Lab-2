@@ -83,25 +83,26 @@ def index():
     data_frontend["pca_stratified_sampling_results_top_3_attributes_names"] = json.dumps(
         pca_stratified_sampling_results_top_3_attributes_names.tolist())
 
-    data_frontend["pca_no_sampling_scree_plot_data"] = json.dumps([json.dumps(
-        {"factor": i + 1, "eigenvalue": pca_no_sampling_results[i],
-         "cumulative_eigenvalue": np.cumsum(pca_no_sampling_results)[i]}) for i in range(19)])
-    data_frontend["pca_random_sampling_scree_plot_data"] = json.dumps([json.dumps(
-        {"factor": i + 1, "eigenvalue": pca_random_sampling_results[i],
-         "cumulative_eigenvalue": np.cumsum(pca_random_sampling_results)[i]}) for i in range(19)])
+    # data_frontend["pca_no_sampling_scree_plot_data"] = json.dumps([json.dumps(
+    #     {"factor": i + 1, "eigenvalue": pca_no_sampling_results[i],
+    #      "cumulative_eigenvalue": np.cumsum(pca_no_sampling_results)[i]}) for i in range(19)])
+    # data_frontend["pca_random_sampling_scree_plot_data"] = json.dumps([json.dumps(
+    #     {"factor": i + 1, "eigenvalue": pca_random_sampling_results[i],
+    #      "cumulative_eigenvalue": np.cumsum(pca_random_sampling_results)[i]}) for i in range(19)])
     # data_frontend["pca_stratified_sampling_scree_plot_data"] = json.dumps([json.dumps(
     #     {"factor": i + 1, "eigenvalue": pca_stratified_sampling_results[i],
     #      "cumulative_eigenvalue": np.cumsum(pca_stratified_sampling_results)[i]}) for i in range(19)])
 
+    data_frontend["pca_no_sampling_scree_plot_data"] = [{"factor": i + 1, "eigenvalue": pca_no_sampling_results[i],
+         "cumulative_eigenvalue": np.cumsum(pca_no_sampling_results)[i]} for i in range(19)]
+    data_frontend["pca_random_sampling_scree_plot_data"] = [{"factor": i + 1, "eigenvalue": pca_random_sampling_results[i],
+         "cumulative_eigenvalue": np.cumsum(pca_random_sampling_results)[i]} for i in range(19)]
     data_frontend["pca_stratified_sampling_scree_plot_data"] = [{"factor": i + 1, "eigenvalue": pca_stratified_sampling_results[i],
          "cumulative_eigenvalue": np.cumsum(pca_stratified_sampling_results)[i]} for i in range(19)]
 
-    data_frontend["pca_no_sampling_projected_points"] = json.dumps(
-        [json.dumps({"x": i[1], "y": i[0]}) for i in pca_no_sampling_projected_points.tolist()])
-    data_frontend["pca_random_sampling_projected_points"] = json.dumps(
-        [json.dumps({"x": i[1], "y": i[0]}) for i in pca_random_sampling_projected_points.tolist()])
-    data_frontend["pca_stratified_sampling_projected_points"] = json.dumps(
-        [json.dumps({"x": i[1], "y": i[0]}) for i in pca_stratified_sampling_projected_points.tolist()])
+    data_frontend["pca_no_sampling_projected_points"] = [{"x": i[1], "y": i[0]} for i in pca_no_sampling_projected_points.tolist()]
+    data_frontend["pca_random_sampling_projected_points"] = [{"x": i[1], "y": i[0]} for i in pca_random_sampling_projected_points.tolist()]
+    data_frontend["pca_stratified_sampling_projected_points"] = [{"x": i[1], "y": i[0]} for i in pca_stratified_sampling_projected_points.tolist()]
 
     # print(json.dumps(json.loads(data_frontend["pca_no_sampling_projected_points"]), indent=4))
 

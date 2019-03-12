@@ -531,15 +531,19 @@ function ScreePlot(options) {
         //     console.log(d.eigenvalue)
         // });
         for (var i = 0, len = parent.dataset.length; i < len; i++) {
-            parent.dataset[i].eigenvalue = +parent.dataset[i].eigenvalue;
+            parent.dataset[i].eigenvalue = +parent.dataset[i].eigenvalue*100;
             console.log(parent.dataset[i].eigenvalue);
+        }
+        for (var i = 0, len = parent.dataset.length; i < len; i++) {
+            parent.dataset[i].cumulative_eigenvalue = +parent.dataset[i].cumulative_eigenvalue*100;
+            console.log(parent.dataset[i].cumulative_eigenvalue);
         }
 
         // Scale the range of the data in the domains
         var domain = Array.from(parent.dataset).map(function(d) { return d.factor; });
         domain.push(domain[domain.length-1]+1);
         parent.x.domain(domain);
-        parent.y.domain([0, 2]);
+        parent.y.domain([0, 115]);
 
         // custom invert function
         parent.x.invert = (function(){
