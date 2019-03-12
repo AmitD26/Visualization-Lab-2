@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/ScreePlot.css">
+    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../static/styles/ScreePlot.css"></script>
+    <script src="../static/ScreePlot.js"></script>
+</head>
+<body>
+<div id="screePlot"></div>
+<script>
+    var data = {{ data.chart_data | safe }}
+    console.log(data);
+    console.log(data["pca_stratified_sampling_scree_plot_data"]);
+
+    var screePlotCSSOptions = {
+        domElement: "#screePlot",
+        width: $('#screePlot').parent().width(),
+        height: 550,
+        margin:{top: 20,right: 20,bottom: 20,left: 35},
+        showGridlines:true,
+        noOfGridlines:10,
+        showAxes:false,
+        svgBackground:'#FFFFFF',
+        barFill:'#3498db',
+        barStroke:'#FFFFFF',
+        barStrokeWidth:0,
+        selBarFill:'#2ECC71',
+        selBarStroke:'#FFFFFF',
+        selBarStrokeWidth:0,
+        circleFill:'#3498db',
+        circleStroke:'#FFFFFF',
+        circleStrokeWidth:1,
+        selCircleFill:'#2ECC71',
+        selCircleStroke:'#FFFFFF',
+        selCircleStrokeWidth:1,
+        lineStrokeWidth:2,
+        filterLineStrokeWidth:2,
+        nodeTextColor:"#ffff00"
+    };
+
+    var screePlotDataOptions = {
+        factorSelected:3
+    }
+
+    var screePlot = new ScreePlot(screePlotCSSOptions);
+    screePlot.initialize(); // initializes the SVG and UI elements
+    screePlot.render(data["pca_stratified_sampling_scree_plot_data"],screePlotDataOptions);
+</script>
+</body>
+</html>

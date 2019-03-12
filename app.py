@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, Response, jsonify
 
 import pandas as pd
 import numpy as np
 import random
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+from sklearn.manifold import MDS
+import scipy.spatial.distance
 import matplotlib.pyplot as plt
 import json
 
@@ -44,6 +46,18 @@ def index():
     pca_stratified_sampling_projected_points = np.dot(stratified_sampling_results,
                                                       pca_stratified_sampling_top_two_components.T)
 
+    # mds = MDS(dissimilarity='euclidean')
+    # df_dimension_reduced = np.array(stratified_sampling_results[pca_stratified_sampling_results_top_3_attributes_names])
+    # # dissimilarity_matrix = scipy.spatial.distance.cdist(df_dimension_reduced, df_dimension_reduced,
+    # #                                                     metric='euclidean')
+    # # np.fill_diagonal(dissimilarity_matrix, np.zeros(len(dissimilarity_matrix)))
+    # # print(np.sum(np.isnan(dissimilarity_matrix)))
+    # # print(np.sum(np.isnan(df_dimension_reduced)))
+    # mds.fit(df_dimension_reduced)
+    # print(mds.embedding_.shape)
+    # print(mds.embedding_)
+    # # print(dissimilarity_matrix)
+
     # print(len(random_sampling_results))
     # print(len(stratified_sampling_results))
     # print(np.cumsum(pca_no_sampling_results))
@@ -75,9 +89,12 @@ def index():
     data_frontend["pca_random_sampling_scree_plot_data"] = json.dumps([json.dumps(
         {"factor": i + 1, "eigenvalue": pca_random_sampling_results[i],
          "cumulative_eigenvalue": np.cumsum(pca_random_sampling_results)[i]}) for i in range(19)])
-    data_frontend["pca_stratified_sampling_scree_plot_data"] = json.dumps([json.dumps(
-        {"factor": i + 1, "eigenvalue": pca_stratified_sampling_results[i],
-         "cumulative_eigenvalue": np.cumsum(pca_stratified_sampling_results)[i]}) for i in range(19)])
+    # data_frontend["pca_stratified_sampling_scree_plot_data"] = json.dumps([json.dumps(
+    #     {"factor": i + 1, "eigenvalue": pca_stratified_sampling_results[i],
+    #      "cumulative_eigenvalue": np.cumsum(pca_stratified_sampling_results)[i]}) for i in range(19)])
+
+    data_frontend["pca_stratified_sampling_scree_plot_data"] = [{"factor": i + 1, "eigenvalue": pca_stratified_sampling_results[i],
+         "cumulative_eigenvalue": np.cumsum(pca_stratified_sampling_results)[i]} for i in range(19)]
 
     data_frontend["pca_no_sampling_projected_points"] = json.dumps(
         [json.dumps({"x": i[1], "y": i[0]}) for i in pca_no_sampling_projected_points.tolist()])
@@ -86,9 +103,11 @@ def index():
     data_frontend["pca_stratified_sampling_projected_points"] = json.dumps(
         [json.dumps({"x": i[1], "y": i[0]}) for i in pca_stratified_sampling_projected_points.tolist()])
 
-    print(json.dumps(json.loads(data_frontend["pca_no_sampling_projected_points"]), indent=4))
+    # print(json.dumps(json.loads(data_frontend["pca_no_sampling_projected_points"]), indent=4))
 
-    return 'hello'
+    data_frontend = {'chart_data': data_frontend}
+
+    return render_template('index.html', data=data_frontend)
 
 
 def random_sampling(data):
@@ -136,7 +155,8 @@ def stratified_sampling(data):
         cluster_size = cluster_sizes[i]
         cluster_records = data[data['Label'] == i]
         sample_size = int(cluster_size * 0.25)
-        stratified_sampling_results = pd.concat([stratified_sampling_results, cluster_records.iloc[random.sample(range(cluster_size), sample_size)]])
+        stratified_sampling_results = pd.concat(
+            [stratified_sampling_results, cluster_records.iloc[random.sample(range(cluster_size), sample_size)]])
     # print("Stratified sampling results length: " + str(len(stratified_sampling_results)))
     # print("Sum of sizes" + str(sum(cluster_sizes)))
     # print(stratified_sampling_results)
