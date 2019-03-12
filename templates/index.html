@@ -16,6 +16,7 @@
     console.log(data);
     console.log(data["pca_stratified_sampling_projected_points"]);
 
+    {#Screeplot **********************************************************************************************#}
     var screePlotCSSOptions = {
         domElement: "#screePlot",
         {#width: $('#screePlot').parent().width(),#}
@@ -50,6 +51,11 @@
     var screePlot = new ScreePlot(screePlotCSSOptions);
     screePlot.initialize(); // initializes the SVG and UI elements
     screePlot.render(data["pca_random_sampling_scree_plot_data"],screePlotDataOptions);
+
+    {#PCA plot ************************************************************************************************#}
+    data["pca_stratified_sampling_projected_points"].map(function (d) {
+        console.log("x"+ d.x)
+    })
 </script>
 </body>
 </html>
