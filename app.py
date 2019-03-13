@@ -46,17 +46,27 @@ def index():
     pca_stratified_sampling_projected_points = np.dot(stratified_sampling_results,
                                                       pca_stratified_sampling_top_two_components.T)
 
-    # mds = MDS(dissimilarity='euclidean')
-    # df_dimension_reduced = np.array(stratified_sampling_results[pca_stratified_sampling_results_top_3_attributes_names])
-    # # dissimilarity_matrix = scipy.spatial.distance.cdist(df_dimension_reduced, df_dimension_reduced,
-    # #                                                     metric='euclidean')
-    # # np.fill_diagonal(dissimilarity_matrix, np.zeros(len(dissimilarity_matrix)))
-    # # print(np.sum(np.isnan(dissimilarity_matrix)))
-    # # print(np.sum(np.isnan(df_dimension_reduced)))
-    # mds.fit(df_dimension_reduced)
+    mds_eucl = MDS(dissimilarity='euclidean')
+    df_dimension_reduced = np.array(stratified_sampling_results[pca_stratified_sampling_results_top_3_attributes_names])
+    mds_eucl.fit(df_dimension_reduced)
+    mds_eucl_points = np.array(mds_eucl.embedding_ * 10, dtype=int)
+
+    mds_corr = MDS(dissimilarity='precomputed')
+    dissimilarity_matrix = scipy.spatial.distance.cdist(df_dimension_reduced, df_dimension_reduced,
+                                                        metric='correlation')
+    np.fill_diagonal(dissimilarity_matrix, np.zeros(len(dissimilarity_matrix)))
+    dissimilarity_matrix = np.nan_to_num(dissimilarity_matrix)
+    mds_corr.fit(dissimilarity_matrix)
+    mds_corr_points = np.array(mds_corr.embedding_ * 10, dtype=int)
+    print(mds_corr_points.shape)
+    print(mds_corr_points)
+    # print(np.sum(np.isnan(dissimilarity_matrix)))
+    # print(np.sum(np.isnan(df_dimension_reduced)))
+
     # print(mds.embedding_.shape)
     # print(mds.embedding_)
-    # # print(dissimilarity_matrix)
+
+    # print(dissimilarity_matrix)
 
     # print(len(random_sampling_results))
     # print(len(stratified_sampling_results))
@@ -105,6 +115,9 @@ def index():
     data_frontend["pca_stratified_sampling_projected_points"] = [{"x": i[1], "y": i[0]} for i in pca_stratified_sampling_projected_points.tolist()]
 
     data_frontend["scatterplot_matrix_data"] = np.array(stratified_sampling_results[pca_stratified_sampling_results_top_3_attributes_names]).tolist()
+
+    data_frontend["mds_eucl_data"] = [{"x": i[0], "y": i[1]} for i in mds_eucl_points]
+    data_frontend["mds_corr_data"] = [{"x": i[0], "y": i[1]} for i in mds_corr_points]
     print(data_frontend["scatterplot_matrix_data"])
 
     # print(json.dumps(json.loads(data_frontend["pca_no_sampling_projected_points"]), indent=4))
@@ -158,7 +171,7 @@ def stratified_sampling(data):
     for i in range(6):
         cluster_size = cluster_sizes[i]
         cluster_records = data[data['Label'] == i]
-        sample_size = int(cluster_size * 0.25)
+        sample_size = int(cluster_size * 0.05)
         stratified_sampling_results = pd.concat(
             [stratified_sampling_results, cluster_records.iloc[random.sample(range(cluster_size), sample_size)]])
     # print("Stratified sampling results length: " + str(len(stratified_sampling_results)))
