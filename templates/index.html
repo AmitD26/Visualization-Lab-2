@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CSE 564 Lab 2</title>
     <link rel="stylesheet" type="text/css" href="../static/styles/ScreePlot.css">
     <link rel="stylesheet" type="text/css" href="../static/styles/index.css">
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
@@ -26,7 +26,6 @@
     console.log(data);
     console.log(data["pca_stratified_sampling_projected_points"]);
 
-    {#Screeplot **********************************************************************************************#}
 
     function scree_plot_no_sampling() {
         d3.select("svg").remove()
@@ -151,20 +150,16 @@
         screePlot.render(data["pca_stratified_sampling_scree_plot_data"], screePlotDataOptions);
     }
 
-    {#PCA plot ************************************************************************************************#}
     function pca_plot() {
         d3.select("svg").remove()
         pca_data = data["pca_stratified_sampling_projected_points"]
         var body = d3.select('body')
 
-
-        // Variables
         var body = d3.select('body')
         var margin = {top: 50, right: 50, bottom: 50, left: 50}
         var h = 750 - margin.top - margin.bottom
         var w = 750 - margin.left - margin.right
-        //var formatPercent = d3.format('.2%')
-        // Scales
+
         var colorScale = d3.scaleOrdinal()
             .range(d3.schemeCategory20)
         var xScale = d3.scaleLinear()
@@ -187,24 +182,18 @@
                 })])
             ])
             .range([h, 0])
-        //window.alert(([0,d3.max(data,function (d) { return d['LATITUDE'] })]))
-        // SVG
+
         var svg = body.append('svg')
             .attr('height', h + margin.top + margin.bottom)
             .attr('width', w + margin.left + margin.right)
             .append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-        // X-axis
         var xAxis = d3.axisBottom()
             .scale(xScale)
-            // .tickFormat(formatPercent)
             .ticks(10)
-        // Y-axis
         var yAxis = d3.axisLeft()
             .scale(yScale)
-            //.tickFormat(formatPercent)
             .ticks(10)
-        // Circles
         var circles = svg.selectAll('circle')
             .data(pca_data)
             .enter()
@@ -221,26 +210,7 @@
             .attr('fill', function (d, i) {
                 return colorScale(i)
             })
-            {#.on('mouseover', function () {#}
-            {#    d3.select(this)#}
-            {#        .transition()#}
-            {#        .duration(500)#}
-            {#        .attr('r', 20)#}
-            {#        .attr('stroke-width', 3)#}
-            {# })#}
-            {#.on('mouseout', function () {#}
-            {#    d3.select(this)#}
-            {#        .transition()#}
-            {#        .duration(500)#}
-            {#        .attr('r', 10)#}
-            {#        .attr('stroke-width', 1)#}
-            {# })#}
-        // .append('title') // Tooltip
-        //    .text(function (d) { return d.variable +
-        //                        '\nReturn: ' + formatPercent(d['Annualized Return']) +
-        //                         '\nStd. Dev.: ' + formatPercent(d['Annualized Standard Deviation']) +
-        //                         '\nMax Drawdown: ' + formatPercent(d['Maximum Drawdown']) })
-        // X-axis
+
         svg.append('g')
             .attr('class', 'axis')
             .attr('id', 'xAxis')
@@ -253,7 +223,6 @@
             .attr('dy', '.71em')
             .style('text-anchor', 'end')
             .text('PC1')
-        // Y-axis
         svg.append('g')
             .attr('class', 'axis')
             .attr('id', 'yAxis')
@@ -268,7 +237,7 @@
             .text('PC2')
 
         function yChange() {
-            var value = this.value // get the new y value
+            var value = this.value
             yScale // change the yScale
                 .domain([
                     d3.min([-6, d3.min(pca_data, function (d) {
@@ -278,22 +247,20 @@
                         return d[value]
                     })])
                 ])
-            yAxis.scale(yScale) // change the yScale
-            d3.select('#yAxis') // redraw the yAxis
-            // .transition().duration(1)
+            yAxis.scale(yScale)
+            d3.select('#yAxis')
                 .call(yAxis)
-            d3.select('#yAxisLabel') // change the yAxisLabel
+            d3.select('#yAxisLabel')
                 .text(value)
-            d3.selectAll('circle') // move the circles
-            // .transition().duration(1)
-            //.delay(function (d,i) { return i*100})
+            d3.selectAll('circle')
+
                 .attr('cy', function (d) {
                     return yScale(d[value])
                 })
         }
 
         function xChange() {
-            var value = this.value // get the new x value
+            var value = this.value
             xScale // change the xScale
                 .domain([
                     d3.min([-6, d3.min(pca_data, function (d) {
@@ -303,16 +270,13 @@
                         return d[value]
                     })])
                 ])
-            xAxis.scale(xScale) // change the xScale
-            d3.select('#xAxis') // redraw the xAxis
-            //.transition().duration(1)
+            xAxis.scale(xScale)
+            d3.select('#xAxis')
                 .call(xAxis)
-            d3.select('#xAxisLabel') // change the xAxisLabel
-            // .transition().duration(1)
+            d3.select('#xAxisLabel')
                 .text(value)
-            d3.selectAll('circle') // move the circles
+            d3.selectAll('circle')
                 .transition().duration(1)
-            // .delay(function (d,i) { return i*1})
                 .attr('cx', function (d) {
                     return xScale(d[value])
                 })
@@ -320,129 +284,7 @@
 
     }
 
-  {#Endof working pca plot code********************************************************************************#}
 
-  {#  var margin = {top: 20, right: 20, bottom: 30, left: 40},#}
-  {#  width = 960 - margin.left - margin.right,#}
-  {#  height = 500 - margin.top - margin.bottom;#}
-  {##}
-  {#// Cast my values as numbers and determine ranges.#}
-  {#var minmax = {x: {min:0, max:0}, y: {min:0, max:0}}#}
-  {#data.forEach(function(d) {#}
-  {#  d.x = +d.x;#}
-  {#  d.y = +d.y;#}
-  {#  minmax.x.min = Math.min(d.x, minmax.x.min);#}
-  {#  minmax.x.max = Math.max(d.x, minmax.x.max);#}
-  {#  minmax.y.min = Math.min(d.y, minmax.y.min);#}
-  {#  minmax.y.max = Math.max(d.y, minmax.y.max);#}
-  {# });#}
-  {##}
-  {#// Set-up my x scale.#}
-  {#var x = d3.scaleLinear()#}
-  {#  .range([0, width])#}
-  {#  .domain([Math.floor(minmax.x.min), Math.ceil(minmax.x.max)]);#}
-  {##}
-  {#// Set-up my y scale.#}
-  {#var y = d3.scaleLinear()#}
-  {#  .range([height, 0])#}
-  {#  .domain([Math.floor(minmax.y.min), Math.ceil(minmax.y.max)]);#}
-  {##}
-  {#// Create my x-axis using my scale.#}
-  {#var xAxis = d3.svg.axisBottom()#}
-  {#  .scale(x)#}
-  {#  .orient("bottom");#}
-  {##}
-  {#// Create my y-axis using my scale.#}
-  {#var yAxis = d3.svg.axisLeft()#}
-  {#  .scale(y)#}
-  {#  .orient("left");#}
-  {##}
-  {#// Set-up my colours/groups.#}
-  {#var color = d3.scale.category10();#}
-    {# var groups = {};
-  {#groupData.forEach(function(d) {#}
-  {#  groups[d.line] = d.group;#}
-  {# }); #}
-  {##}
-  {#// Create my tooltip creating function.#}
-  {#var tip = d3.tip()#}
-  {#  .attr('class', 'd3-tip')#}
-  {#  .offset([-10, 0])#}
-  {#  .html(function(d) {#}
-  {#    return "<strong>" + d.name + "</strong> (" + groups[d.name] + ")";#}
-  {#  });#}
-  {##}
-  {#// Actually create my canvas.#}
-  {#var svg = d3.select("body").append("svg")#}
-  {#  .attr("width", width + margin.left + margin.right)#}
-  {#  .attr("height", height + margin.top + margin.bottom)#}
-  {#.append("g")#}
-  {#  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");#}
-  {##}
-  {#// Initialize my tooltip.#}
-  {#svg.call(tip);#}
-  {##}
-  {#// Draw my x-axis.#}
-  {#svg.append("g")#}
-  {#  .attr("class", "x axis")#}
-  {#  .attr("transform", "translate(0," + y(0) + ")")#}
-  {#  .call(xAxis)#}
-  {#.append("text")#}
-  {#  .attr("class", "label")#}
-  {#  .attr("x", width)#}
-  {#  .attr("y", -6)#}
-  {#  .style("text-anchor", "end")#}
-  {#  .text("Coord. 1");#}
-  {##}
-  {#// Draw my y-axis.#}
-  {#svg.append("g")#}
-  {#  .attr("class", "y axis")#}
-  {#  .attr("transform", "translate(" + x(0) + ",0)")#}
-  {#  .call(yAxis)#}
-  {#.append("text")#}
-  {#  .attr("class", "label")#}
-  {#  .attr("transform", "rotate(-90)")#}
-  {#  .attr("y", 6)#}
-  {#  .attr("dy", ".71em")#}
-  {#  .style("text-anchor", "end")#}
-  {#  .text("Coord. 2");#}
-  {##}
-  {#// Create all the data points :-D.#}
-  {#svg.selectAll(".dot")#}
-  {#  .data(data)#}
-  {#.enter().append("circle")#}
-  {#  .attr("class", "dot")#}
-  {#  .attr("r", 3.5)#}
-  {#  .attr("cx", function(d) { return x(d.x); })#}
-  {#  .attr("cy", function(d) { return y(d.y); })#}
-    {#.style("stroke", function(d) { return color(groups[d.name]); })#}
-    {#.style("fill", function(d) { return color(groups[d.name]); })#}
-  {#  .on('mouseover', tip.show)#}
-  {#  .on('mouseout', tip.hide);#}
-  {##}
-  {#// Create the container for the legend if it doesn't already exist.#}
-  {#var legend = svg.selectAll(".legend")#}
-  {#  .data(color.domain())#}
-  {#.enter().append("g")#}
-  {#  .attr("class", "legend")#}
-  {#  .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });#}
-  {##}
-  {#// Draw the coloured rectangles for the legend.#}
-  {#legend.append("rect")#}
-  {#  .attr("x", width - 18)#}
-  {#  .attr("width", 18)#}
-  {#  .attr("height", 18)#}
-  {#  .style("fill", color);#}
-  {##}
-  {#// Draw the labels for the legend.#}
-  {#legend.append("text")#}
-  {#  .attr("x", width - 24)#}
-  {#  .attr("y", 9)#}
-  {#  .attr("dy", ".35em")#}
-  {#  .style("text-anchor", "end")#}
-  {#  .text(function(d) { return d; });#}
-
-    {#Scatterplot matrix *****************************************************************************************#}
 
     function scatterplot_matrix() {
         d3.select("svg").remove()
@@ -522,7 +364,6 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
         })
         .each(plot);
 
-    // Titles for the diagonal.
     cell.filter(function (d) {
         return d.i === d.j;
     }).append("text")
@@ -569,22 +410,18 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
     }
 }
 
-        {#MDS plot ************************************************************************************************#}
     function mds_correlation() {
         d3.select("svg").remove()
         mds_data = data["mds_corr_data"]
-        {#data = data["pca_stratified_sampling_projected_points"]#}
         var body = d3.select('body')
 
         console.log("mds corr")
         console.log(mds_data)
-        // Variables
         var body = d3.select('body')
         var margin = {top: 50, right: 50, bottom: 50, left: 50}
         var h = 750 - margin.top - margin.bottom
         var w = 750 - margin.left - margin.right
-        //var formatPercent = d3.format('.2%')
-        // Scales
+
         var colorScale = d3.scaleOrdinal()
             .range(d3.schemeCategory20)
         var xScale = d3.scaleLinear()
@@ -607,24 +444,18 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
                 })])
             ])
             .range([h, 0])
-        //window.alert(([0,d3.max(mds_data,function (d) { return d['LATITUDE'] })]))
-        // SVG
+
         var svg = body.append('svg')
             .attr('height', h + margin.top + margin.bottom)
             .attr('width', w + margin.left + margin.right)
             .append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-        // X-axis
         var xAxis = d3.axisBottom()
             .scale(xScale)
-            // .tickFormat(formatPercent)
             .ticks(10)
-        // Y-axis
         var yAxis = d3.axisLeft()
             .scale(yScale)
-            //.tickFormat(formatPercent)
             .ticks(10)
-        // Circles
         var circles = svg.selectAll('circle')
             .data(mds_data)
             .enter()
@@ -641,44 +472,24 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
             .attr('fill', function (d, i) {
                 return colorScale(i)
             })
-            {#.on('mouseover', function () {#}
-            {#    d3.select(this)#}
-            {#        .transition()#}
-            {#        .duration(500)#}
-            {#        .attr('r', 20)#}
-            {#        .attr('stroke-width', 3)#}
-            {# })#}
-            {#.on('mouseout', function () {#}
-            {#    d3.select(this)#}
-            {#        .transition()#}
-            {#        .duration(500)#}
-            {#        .attr('r', 10)#}
-            {#        .attr('stroke-width', 1)#}
-            {# })#}
-        // .append('title') // Tooltip
-        //    .text(function (d) { return d.variable +
-        //                        '\nReturn: ' + formatPercent(d['Annualized Return']) +
-        //                         '\nStd. Dev.: ' + formatPercent(d['Annualized Standard Deviation']) +
-        //                         '\nMax Drawdown: ' + formatPercent(d['Maximum Drawdown']) })
-        // X-axis
+
         svg.append('g')
             .attr('class', 'axis')
             .attr('id', 'xAxis')
             .attr('transform', 'translate(0,' + h + ')')
             .call(xAxis)
-            .append('text') // X-axis Label
+            .append('text')
             .attr('id', 'xAxisLabel')
             .attr('y', -10)
             .attr('x', w)
             .attr('dy', '.71em')
             .style('text-anchor', 'end')
             .text('PC1')
-        // Y-axis
         svg.append('g')
             .attr('class', 'axis')
             .attr('id', 'yAxis')
             .call(yAxis)
-            .append('text') // y-axis Label
+            .append('text')
             .attr('id', 'yAxisLabel')
             .attr('transform', 'rotate(-90)')
             .attr('x', 0)
@@ -688,7 +499,7 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
             .text('PC2')
 
         function yChange() {
-            var value = this.value // get the new y value
+            var value = this.value
             yScale // change the yScale
                 .domain([
                     d3.min([-6, d3.min(mds_data, function (d) {
@@ -698,22 +509,19 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
                         return d[value]
                     })])
                 ])
-            yAxis.scale(yScale) // change the yScale
-            d3.select('#yAxis') // redraw the yAxis
-            // .transition().duration(1)
+            yAxis.scale(yScale)
+            d3.select('#yAxis')
                 .call(yAxis)
-            d3.select('#yAxisLabel') // change the yAxisLabel
+            d3.select('#yAxisLabel')
                 .text(value)
             d3.selectAll('circle') // move the circles
-            // .transition().duration(1)
-            //.delay(function (d,i) { return i*100})
                 .attr('cy', function (d) {
                     return yScale(d[value])
                 })
         }
 
         function xChange() {
-            var value = this.value // get the new x value
+            var value = this.value
             xScale // change the xScale
                 .domain([
                     d3.min([-6, d3.min(mds_data, function (d) {
@@ -723,16 +531,13 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
                         return d[value]
                     })])
                 ])
-            xAxis.scale(xScale) // change the xScale
-            d3.select('#xAxis') // redraw the xAxis
-            //.transition().duration(1)
+            xAxis.scale(xScale)
+            d3.select('#xAxis')
                 .call(xAxis)
-            d3.select('#xAxisLabel') // change the xAxisLabel
-            // .transition().duration(1)
+            d3.select('#xAxisLabel')
                 .text(value)
             d3.selectAll('circle') // move the circles
                 .transition().duration(1)
-            // .delay(function (d,i) { return i*1})
                 .attr('cx', function (d) {
                     return xScale(d[value])
                 })
@@ -747,13 +552,11 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
 
         console.log("mds corr")
         console.log(mds_data)
-        // Variables
         var body = d3.select('body')
         var margin = {top: 50, right: 50, bottom: 50, left: 50}
         var h = 750 - margin.top - margin.bottom
         var w = 750 - margin.left - margin.right
-        //var formatPercent = d3.format('.2%')
-        // Scales
+
         var colorScale = d3.scaleOrdinal()
             .range(d3.schemeCategory20)
         var xScale = d3.scaleLinear()
@@ -776,24 +579,18 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
                 })])
             ])
             .range([h, 0])
-        //window.alert(([0,d3.max(mds_data,function (d) { return d['LATITUDE'] })]))
-        // SVG
+
         var svg = body.append('svg')
             .attr('height', h + margin.top + margin.bottom)
             .attr('width', w + margin.left + margin.right)
             .append('g')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-        // X-axis
         var xAxis = d3.axisBottom()
             .scale(xScale)
-            // .tickFormat(formatPercent)
             .ticks(10)
-        // Y-axis
         var yAxis = d3.axisLeft()
             .scale(yScale)
-            //.tickFormat(formatPercent)
             .ticks(10)
-        // Circles
         var circles = svg.selectAll('circle')
             .data(mds_data)
             .enter()
@@ -810,26 +607,7 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
             .attr('fill', function (d, i) {
                 return colorScale(i)
             })
-            {#.on('mouseover', function () {#}
-            {#    d3.select(this)#}
-            {#        .transition()#}
-            {#        .duration(500)#}
-            {#        .attr('r', 20)#}
-            {#        .attr('stroke-width', 3)#}
-            {# })#}
-            {#.on('mouseout', function () {#}
-            {#    d3.select(this)#}
-            {#        .transition()#}
-            {#        .duration(500)#}
-            {#        .attr('r', 10)#}
-            {#        .attr('stroke-width', 1)#}
-            {# })#}
-        // .append('title') // Tooltip
-        //    .text(function (d) { return d.variable +
-        //                        '\nReturn: ' + formatPercent(d['Annualized Return']) +
-        //                         '\nStd. Dev.: ' + formatPercent(d['Annualized Standard Deviation']) +
-        //                         '\nMax Drawdown: ' + formatPercent(d['Maximum Drawdown']) })
-        // X-axis
+
         svg.append('g')
             .attr('class', 'axis')
             .attr('id', 'xAxis')
@@ -842,7 +620,6 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
             .attr('dy', '.71em')
             .style('text-anchor', 'end')
             .text('PC1')
-        // Y-axis
         svg.append('g')
             .attr('class', 'axis')
             .attr('id', 'yAxis')
@@ -857,8 +634,8 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
             .text('PC2')
 
         function yChange() {
-            var value = this.value // get the new y value
-            yScale // change the yScale
+            var value = this.value
+            yScale
                 .domain([
                     d3.min([-6, d3.min(mds_data, function (d) {
                         return d[value]
@@ -867,22 +644,19 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
                         return d[value]
                     })])
                 ])
-            yAxis.scale(yScale) // change the yScale
-            d3.select('#yAxis') // redraw the yAxis
-            // .transition().duration(1)
+            yAxis.scale(yScale)
+            d3.select('#yAxis')
                 .call(yAxis)
-            d3.select('#yAxisLabel') // change the yAxisLabel
+            d3.select('#yAxisLabel')
                 .text(value)
-            d3.selectAll('circle') // move the circles
-            // .transition().duration(1)
-            //.delay(function (d,i) { return i*100})
+            d3.selectAll('circle')
                 .attr('cy', function (d) {
                     return yScale(d[value])
                 })
         }
 
         function xChange() {
-            var value = this.value // get the new x value
+            var value = this.value
             xScale // change the xScale
                 .domain([
                     d3.min([-6, d3.min(mds_data, function (d) {
@@ -892,16 +666,13 @@ var color = d3.scaleOrdinal().range(d3.schemeCategory10);
                         return d[value]
                     })])
                 ])
-            xAxis.scale(xScale) // change the xScale
-            d3.select('#xAxis') // redraw the xAxis
-            //.transition().duration(1)
+            xAxis.scale(xScale)
+            d3.select('#xAxis')
                 .call(xAxis)
-            d3.select('#xAxisLabel') // change the xAxisLabel
-            // .transition().duration(1)
+            d3.select('#xAxisLabel')
                 .text(value)
-            d3.selectAll('circle') // move the circles
+            d3.selectAll('circle')
                 .transition().duration(1)
-            // .delay(function (d,i) { return i*1})
                 .attr('cx', function (d) {
                     return xScale(d[value])
                 })
