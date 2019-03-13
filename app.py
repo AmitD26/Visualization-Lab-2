@@ -104,6 +104,9 @@ def index():
     data_frontend["pca_random_sampling_projected_points"] = [{"x": i[1], "y": i[0]} for i in pca_random_sampling_projected_points.tolist()]
     data_frontend["pca_stratified_sampling_projected_points"] = [{"x": i[1], "y": i[0]} for i in pca_stratified_sampling_projected_points.tolist()]
 
+    data_frontend["scatterplot_matrix_data"] = np.array(stratified_sampling_results[pca_stratified_sampling_results_top_3_attributes_names]).tolist()
+    print(data_frontend["scatterplot_matrix_data"])
+
     # print(json.dumps(json.loads(data_frontend["pca_no_sampling_projected_points"]), indent=4))
 
     data_frontend = {'chart_data': data_frontend}
