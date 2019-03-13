@@ -43,6 +43,38 @@ body {
 }
 
 
+/*svg {*/
+  /*font: 10px sans-serif;*/
+  /*padding: 10px;*/
+/*}*/
+
+/*.axis,*/
+/*.frame {*/
+  /*shape-rendering: crispEdges;*/
+/*}*/
+
+/*.axis line {*/
+  /*stroke: #ddd;*/
+/*}*/
+
+/*.axis path {*/
+  /*display: none;*/
+/*}*/
+
+/*.cell text {*/
+  /*font-weight: bold;*/
+  /*text-transform: capitalize;*/
+/*}*/
+
+/*.frame {*/
+  /*fill: none;*/
+  /*stroke: #aaa;*/
+/*}*/
+
+/*circle {*/
+  /*fill-opacity: .7;*/
+/*}*/
+
 circle.hidden {
   fill: #ccc !important;
 }
@@ -52,4 +84,3 @@ circle.hidden {
   fill-opacity: .125;
   stroke: #fff;
 }
-
