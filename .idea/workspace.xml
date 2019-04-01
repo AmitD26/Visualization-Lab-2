@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5dddb7a-1f0b-4ee0-b7f6-ede5c4c830e1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Deliverables - report and video/CSE 564 Visualization Lab 2 report.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Deliverables - report and video/lab 2.avi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -11,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Visualization_Lab_2$Visualization_Lab_2.coverage" NAME="Visualization Lab 2 Coverage Results" MODIFIED="1552446565964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Visualization_Lab_2$Visualization_Lab_2.coverage" NAME="Visualization Lab 2 Coverage Results" MODIFIED="1554156602954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -30,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="256" column="42" lean-forward="true" selection-start-line="256" selection-start-column="42" selection-end-line="256" selection-end-column="42" />
+            <state relative-caret-position="187">
+              <caret line="262" column="34" selection-start-line="262" selection-start-column="34" selection-end-line="262" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -163,6 +165,11 @@
             <path>
               <item name="Visualization Lab 2" type="b2602c69:ProjectViewProjectNode" />
               <item name="Visualization Lab 2" type="462c0819:PsiDirectoryNode" />
+              <item name="Deliverables - report and video" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Visualization Lab 2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Visualization Lab 2" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -281,6 +288,8 @@
       <workItem from="1552435637199" duration="12713000" />
       <workItem from="1552449411375" duration="31000" />
       <workItem from="1552503193556" duration="665000" />
+      <workItem from="1552504737946" duration="651000" />
+      <workItem from="1554156340607" duration="275000" />
     </task>
     <task id="LOCAL-00001" summary="Task 1 ongoing.">
       <created>1552077788653</created>
@@ -342,7 +351,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85215000" />
+    <option name="totallyTimeSpent" value="86141000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -355,20 +364,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1853" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20420587" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2086331" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3293348" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32824427" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32824427" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3293348" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293348" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.3304253" />
@@ -376,7 +384,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24958494" />
-      <window_info active="true" anchor="right" id="SciView" order="3" visible="true" weight="0.32982844" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32982844" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" x="0" y="0" width="413" height="853" id="Documentation" order="5" side_tool="true" weight="0.32982844" />
     </layout>
@@ -458,8 +466,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="256" column="42" lean-forward="true" selection-start-line="256" selection-start-column="42" selection-end-line="256" selection-end-column="42" />
+        <state relative-caret-position="187">
+          <caret line="262" column="34" selection-start-line="262" selection-start-column="34" selection-end-line="262" selection-end-column="34" />
         </state>
       </provider>
     </entry>
